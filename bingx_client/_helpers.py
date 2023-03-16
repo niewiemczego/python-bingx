@@ -9,6 +9,7 @@ def generate_timestamp() -> int:
     """
     return int(time.time() * 10 ** 3)
 
+
 def generate_hash(key: str, query_string: str) -> hmac.HMAC:
     """
     It returns the hash of the query string using the secret key with the SHA256 algorithm

@@ -2,9 +2,11 @@ class InvalidMethodException(Exception):
     """Raised when an invalid method is used"""
     pass
 
+
 class OrderException(Exception):
     """Raised when an error occurs while creating an order object"""
     pass
+
 
 class ClientError(Exception):
     BUISNESS_ERROR_CODES = {
@@ -24,6 +26,7 @@ class ClientError(Exception):
     def __str__(self) -> str:
         return f"Error code: {self.error_code} - {self.BUISNESS_ERROR_CODES.get(self.error_code) or self.error_message}"
 
+
 class ServerError(Exception):
     ERROR_CODES = {
         400: "Bad Request - Invalid request format",
@@ -41,4 +44,4 @@ class ServerError(Exception):
         self.error_message = error_message
 
     def __str__(self) -> str:
-        return f"Error code: {self.error_code} - {self.ERROR_CODES.get(self.error_code) or self.error_message}"\
+        return f"Error code: {self.error_code} - {self.ERROR_CODES.get(self.error_code) or self.error_message}"

@@ -1,0 +1,1 @@
+from .spot import Spot

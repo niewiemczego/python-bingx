@@ -11,6 +11,8 @@ class Account(_HTTPManager):
     def get_details(self, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Get asset information of user's Perpetual Account
+
+        https://bingx-api.github.io/docs/swapV2/account-api.html#_1-get-perpetual-swap-account-asset-information
         """
 
         endpoint = "/openApi/swap/v2/user/balance"
@@ -22,6 +24,8 @@ class Account(_HTTPManager):
     def get_swap_positions(self, symbol: str | None = None, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Retrieve information on users' positions of Perpetual Swap.
+
+        https://bingx-api.github.io/docs/swapV2/account-api.html#_2-perpetual-swap-positions
         """
 
         endpoint = "/openApi/swap/v2/user/positions"
@@ -36,6 +40,8 @@ class Account(_HTTPManager):
     def get_profit_loss_fund_flow(self, profit_loss_fund_flow: ProfitLossFundFlow):
         """
         Query the capital flow of the perpetual contract under the current account.
+
+        https://bingx-api.github.io/docs/swapV2/account-api.html#_3-get-account-profit-and-loss-fund-flow
         """
         endpoint = "/openApi/swap/v2/user/income"
         payload = profit_loss_fund_flow.to_dict()

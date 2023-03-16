@@ -1,7 +1,7 @@
 from typing import Any
 
 from bingx_client._http_manager import _HTTPManager
-from bingx_client.perpetual.v2.types import MarginType, Order, OrderPositionSide
+from bingx_client.perpetual.v2.types import MarginType, Order, PositionSide
 
 
 class Market(_HTTPManager):
@@ -11,6 +11,8 @@ class Market(_HTTPManager):
     def get_contract_info(self) -> dict[str, Any]:
         """
         Get the contract information of the swap contract
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_1-contract-information
         """
 
         endpoint =  "/openApi/swap/v2/quote/contracts"
@@ -23,6 +25,8 @@ class Market(_HTTPManager):
         It returns the latest price of a trading pair. If no transaction pair parameters are sent, all transaction pair information will be returned
 
         :param symbol: The trading pair you want to get the latest price of
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_2-get-latest-price-of-a-trading-pair
         """
 
         endpoint =  "/openApi/swap/v2/quote/price"
@@ -38,6 +42,8 @@ class Market(_HTTPManager):
 
         :param symbol: The symbol you want to get the market depth for
         :param limit: The number of price levels to return, optional value:[5, 10, 20, 50, 100, 500, 1000]
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_3-get-market-depth
         """
 
         endpoint =  "/openApi/swap/v2/quote/depth"
@@ -53,6 +59,8 @@ class Market(_HTTPManager):
 
         :param symbol: The trading pair you want to get the latest trades for
         :param limit: The number of trades to return, maximum 1000
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_4-the-latest-trade-of-a-trading-pair
         """
 
         endpoint =  "/openApi/swap/v2/quote/trades"
@@ -67,6 +75,8 @@ class Market(_HTTPManager):
         Get the current funding rate for a given symbol
 
         :param symbol: The symbol you want to get the funding rate for. If you don't specify a symbol, you'll get the funding rate for all symbols
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_5-current-funding-rate
         """
 
         endpoint =  "/openApi/swap/v2/quote/premiumIndex"
@@ -85,6 +95,8 @@ class Market(_HTTPManager):
         :param start_time: The start time of the data you want to query
         :param end_time: The end time of the data you want to query
         :param limit: The number of results to return, maximum 1000
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_6-funding-rate-history
         """
 
         endpoint = "/openApi/swap/v2/quote/fundingRate"
@@ -103,6 +115,8 @@ class Market(_HTTPManager):
         :param start_time: The start time of the Kline data, in milliseconds
         :param end_time: The end time of the Kline data, in milliseconds
         :param limit: The number of Kline data to return, maximum 1440
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_7-k-line-data
         """
 
         endpoint = "/openApi/swap/v2/quote/klines"
@@ -116,6 +130,8 @@ class Market(_HTTPManager):
         It returns the open positions for a given symbol.
 
         :param symbol: The symbol you want to get the open interest for
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_8-get-swap-open-positions
         """
 
         endpoint = "/openApi/swap/v2/quote/openInterest"
@@ -130,6 +146,8 @@ class Market(_HTTPManager):
         If no transaction pair parameters are sent, all transaction pair information will be returned
 
         :param symbol: The symbol you want to get the ticker for. If you don't specify a symbol, you'll getthe ticker for all symbols
+
+        https://bingx-api.github.io/docs/swapV2/market-api.html#_9-get-ticker
         """
 
         endpoint = "/openApi/swap/v2/quote/ticker"

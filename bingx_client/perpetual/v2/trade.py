@@ -17,6 +17,8 @@ class Trade(_HTTPManager):
     def trade_order(self, order: Order) -> dict[str, Any]:
         """
         The current account places an order on the specified symbol contract.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_1-trade-order
         """
 
         endpoint = "/openApi/swap/v2/trade/order"
@@ -28,6 +30,8 @@ class Trade(_HTTPManager):
     def bulk_trade_order(self, orders: list[Order], recvWindow: int | None = None) -> dict[str, Any]:
         """
         The current account performs batch order operations on the specified symbol contract.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_2-bulk-order
         """
 
         endpoint = "/openApi/swap/v2/trade/batchOrders"
@@ -39,6 +43,8 @@ class Trade(_HTTPManager):
     def close_all_positions(self, recvWindow: int | None = None) -> dict[str, Any]:
         """
         One-click liquidation of all positions under the current account. Note that one-click liquidation is triggered by a market order.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_3-one-click-close-all-positions
         """
 
         endpoint = "/openApi/swap/v2/trade/closeAllPositions"
@@ -50,6 +56,8 @@ class Trade(_HTTPManager):
     def cancel_order(self, order_id: int, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Cancel an order that the current account is in the current entrusted state.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_4-cancel-an-order
         """
 
         endpoint = "/openApi/swap/v2/trade/order"
@@ -61,6 +69,8 @@ class Trade(_HTTPManager):
     def cancel_batch_orders(self, order_ids: list[int], symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Batch cancellation of some of the orders whose current account is in the current entrusted state.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_5-cancel-a-batch-of-orders
         """
 
         endpoint = "/openApi/swap/v2/trade/batchOrders"
@@ -72,6 +82,8 @@ class Trade(_HTTPManager):
     def cancel_all_orders(self, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Cancel all orders in the current entrusted state of the current account.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_6-cancel-all-orders
         """
 
         endpoint = "/openApi/swap/v2/trade/allOpenOrders"
@@ -83,6 +95,8 @@ class Trade(_HTTPManager):
     def get_open_orders(self, symbol: str | None = None, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Query all orders that the user is currently entrusted with.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_7-query-all-current-pending-orders
         """
 
         endpoint = "/openApi/swap/v2/trade/openOrders"
@@ -97,6 +111,8 @@ class Trade(_HTTPManager):
     def get_order(self, order_id: int, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Query order details
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_8-query-order
         """
 
         endpoint = "/openApi/swap/v2/trade/order"
@@ -108,6 +124,8 @@ class Trade(_HTTPManager):
     def get_margin_mode(self, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Query the user's margin mode on the specified symbol contract: isolated or cross.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_9-query-margin-mode
         """
 
         endpoint = "/openApi/swap/v2/trade/marginType"
@@ -118,7 +136,9 @@ class Trade(_HTTPManager):
 
     def change_margin_mode(self, symbol: str, margin_type: MarginType, recvWindow: int | None = None) -> dict[str, Any]:
         """
-        Change the user's margin mode on the specified symbol contract: isolated margin or cross margin.
+        Change the user's margin mode on the specified symbol contract: isolated margin or cross margin.]
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_10-switch-margin-mode
         """
 
         endpoint = "/openApi/swap/v2/trade/marginType"
@@ -130,6 +150,8 @@ class Trade(_HTTPManager):
     def get_leverage(self, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Query the opening leverage of the user in the specified symbol contract.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_11-query-leverage
         """
 
         endpoint = "/openApi/swap/v2/trade/leverage"
@@ -141,6 +163,8 @@ class Trade(_HTTPManager):
     def change_leverage(self, symbol: str, position_side: PositionSide, leverage: int, recvWindow: int | None = None) -> dict[str, Any]:
         """
         Adjust the user's opening leverage in the specified symbol contract.
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_12-switch-leverage
         """
 
         endpoint = "/openApi/swap/v2/trade/leverage"
@@ -153,6 +177,8 @@ class Trade(_HTTPManager):
         """
         Query the user's forced liquidation order. If "autoCloseType" is not passed, both forced liquidation orders and ADL liquidation orders will be returned.
         If "startTime" is not passed, only the data within 7 days before "endTime" will be returned
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_13-user-s-force-orders
         """
 
         endpoint = "/openApi/swap/v2/trade/forceOrders"
@@ -166,6 +192,7 @@ class Trade(_HTTPManager):
         Query the user's historical orders (order status is completed or canceled). The maximum query time range shall not exceed 7 days.
         Query data within the last 7 days by default
 
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_14-user-s-history-orders
         """
 
         endpoint = "/openApi/swap/v2/trade/allOrders"
@@ -183,6 +210,8 @@ class Trade(_HTTPManager):
         :param type: 1 for increase, 2 for decrease
         :param position_side: PositionSide = PositionSide.LONG
         :param recvWindow: The number of milliseconds the request is valid for
+
+        https://bingx-api.github.io/docs/swapV2/trade-api.html#_15-adjust-isolated-margin
         """
 
         endpoint = "/openApi/swap/v2/trade/positionMargin"

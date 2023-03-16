@@ -1,7 +1,6 @@
 from typing import Any
 
 from bingx_client._http_manager import _HTTPManager
-from bingx_client.perpetual.v2.types import MarginType, Order, PositionSide
 
 
 class Other(_HTTPManager):
@@ -17,7 +16,7 @@ class Other(_HTTPManager):
 
         endpoint =  "/openApi/user/auth/userDataStream"
 
-        response = self._post(endpoint)
+        response = self.post(endpoint)
         return response.status_code
 
     def extend_listen_key_validity_period(self, listen_key: str) -> int:
@@ -34,7 +33,7 @@ class Other(_HTTPManager):
         endpoint = "/openApi/user/auth/userDataStream"
         payload = {"listenKey": listen_key}
 
-        response = self._put(endpoint, payload)
+        response = self.put(endpoint, payload)
         return response.status_code
 
     def delete_listen_key(self, listen_key: str) -> int:
@@ -51,5 +50,5 @@ class Other(_HTTPManager):
         endpoint = "/openApi/user/auth/userDataStream"
         payload = {"listenKey": listen_key}
 
-        response = self._delete(endpoint, payload)
+        response = self.delete(endpoint, payload)
         return response.status_code

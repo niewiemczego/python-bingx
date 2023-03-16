@@ -1,7 +1,6 @@
 from typing import Any
 
 from bingx_client._http_manager import _HTTPManager
-from bingx_client.perpetual.v2.types import MarginType, Order, PositionSide
 
 
 class Market(_HTTPManager):
@@ -17,7 +16,7 @@ class Market(_HTTPManager):
 
         endpoint =  "/openApi/swap/v2/quote/contracts"
 
-        response = self._get(endpoint)
+        response = self.get(endpoint)
         return response.json()
 
     def get_latest_price_of_trading_pair(self, symbol: str | None = None) -> dict[str, Any]:
@@ -33,7 +32,7 @@ class Market(_HTTPManager):
 
         payload = {} if symbol is None else {"symbol": symbol.upper()}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_market_depth(self, symbol: str, limit: int = 20) -> dict[str, Any]:
@@ -50,7 +49,7 @@ class Market(_HTTPManager):
 
         payload = {"symbol": symbol.upper(), "limit": limit}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_latest_trade_of_trading_pair(self, symbol: str, limit: int = 500) -> dict[str, Any]:
@@ -67,7 +66,7 @@ class Market(_HTTPManager):
 
         payload = {"symbol": symbol.upper(), "limit": limit}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_current_funding_rate(self, symbol: str | None = None) -> dict[str, Any]:
@@ -82,7 +81,7 @@ class Market(_HTTPManager):
         endpoint =  "/openApi/swap/v2/quote/premiumIndex"
         payload = {} if symbol is None else {"symbol": symbol.upper()}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_funding_rate_history(self, symbol: str, start_time: int | None = None, end_time: int | None = None, limit: int = 100) -> dict[str, Any]:
@@ -102,7 +101,7 @@ class Market(_HTTPManager):
         endpoint = "/openApi/swap/v2/quote/fundingRate"
         payload = {"symbol": symbol.upper(), "limit": limit} if start_time is None or end_time is None else {"symbol": symbol.upper(), "startTime": start_time, "endTime": end_time, "limit": limit}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_k_line_data(self, symbol: str, interval: str, start_time: int | None = None, end_time: int | None = None, limit: int = 500) -> dict[str, Any]:
@@ -122,7 +121,7 @@ class Market(_HTTPManager):
         endpoint = "/openApi/swap/v2/quote/klines"
         payload = {"symbol": symbol.upper(), "interval": interval, "limit": limit} if start_time is None or end_time is None else {"symbol": symbol.upper(), "interval": interval, "startTime": start_time, "endTime": end_time, "limit": limit}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_swap_open_positions(self, symbol: str) -> dict[str, Any]:
@@ -137,7 +136,7 @@ class Market(_HTTPManager):
         endpoint = "/openApi/swap/v2/quote/openInterest"
         payload = {"symbol": symbol.upper()}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()
 
     def get_ticker(self, symbol: str | None = None) -> dict[str, Any]:
@@ -153,5 +152,5 @@ class Market(_HTTPManager):
         endpoint = "/openApi/swap/v2/quote/ticker"
         payload = {} if symbol is None else {"symbol": symbol.upper()}
 
-        response = self._get(endpoint, payload)
+        response = self.get(endpoint, payload)
         return response.json()

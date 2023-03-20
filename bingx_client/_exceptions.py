@@ -8,10 +8,19 @@ class OrderException(Exception):
     pass
 
 
+class HistoryOrderException(Exception):
+    """Raised when an error occurs while creating an order object"""
+    pass
+
+
 class ClientError(Exception):
     BUISNESS_ERROR_CODES = {
         100001: "signature verification failed",
+        100202: "Insufficient balance",
+        100400: "Invalid parameter",
+        100440: "Order price deviates greatly from the market price",
         100500: "Internal system error",
+        100503: "Server busy",
         80001: "request failed",
         80012: "service unavailable",
         80014: "Invalid parameter",

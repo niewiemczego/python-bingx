@@ -38,7 +38,7 @@ class _HTTPManager:
         query_string += f"&signature={self._generate_signature(query_string)}"
         return query_string
 
-    def _request(self, method: str, endpoint: str, payload: dict[str, Any], headers: dict[str, Any]) -> requests.Response:
+    def _request(self, method: str, endpoint: str, payload: dict[str, Any] = {}, headers: dict[str, Any] = {}) -> requests.Response:
         """
         It takes a method, endpoint, payload, and headers, and returns a response
 

@@ -38,7 +38,7 @@ class _HTTPManager:
         query_string += f"&signature={self._generate_signature(query_string)}"
         return query_string
 
-    def _request(self, method: str, endpoint: str, payload: dict[str, Any] = {}, headers: dict[str, Any] = {}) -> requests.Response:
+    def _request(self, method: str, endpoint: str, payload: dict[str, Any], headers: dict[str, Any]) -> requests.Response:
         """
         It takes a method, endpoint, payload, and headers, and returns a response
 
@@ -66,11 +66,15 @@ class _HTTPManager:
         if req.status_code != 200:
             raise ServerError(req.status_code, req.text)
 
-        req_json: dict[str, Any] = req.json()
-        if req_json.get("code") != 0:
-            raise ClientError(req_json.get("code"), req_json.get("msg"))
-
-        return req
+        try:
+            req_json: dict[str, Any] = req.json()
+        except requests.exceptions.JSONDecodeError:
+            return req
+        else:
+            #TODO: Check if this is the correct way to check for errors
+            if req_json.get("code") is not None and req_json.get("code") != 0:
+                raise ClientError(req_json.get("code"), req_json.get("msg"))
+            return req
 
     def get(self, endpoint: str, payload: dict[str, Any] = {}, headers: dict[str, Any] = {}) -> requests.Response:
         """

@@ -1,5 +1,6 @@
 from bingx_client.perpetual.v2.account import Account
 from bingx_client.perpetual.v2.market import Market
+from bingx_client.perpetual.v2.other import Other
 from bingx_client.perpetual.v2.trade import Trade
 
 
@@ -8,3 +9,4 @@ class PerpetualV2:
         self.account = Account(api_key, secret_key)
         self.market = Market(api_key, secret_key)
         self.trade = Trade(api_key, secret_key)
+        self.other = Other(api_key, secret_key)

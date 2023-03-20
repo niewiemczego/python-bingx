@@ -1,5 +1,6 @@
 from typing import Any
 
+from bingx_client._exceptions import ServerError
 from bingx_client._http_manager import _HTTPManager
 
 
@@ -17,7 +18,7 @@ class Other(_HTTPManager):
         endpoint =  "/openApi/user/auth/userDataStream"
 
         response = self.post(endpoint)
-        return response.status_code
+        return response.json()
 
     def extend_listen_key_validity_period(self, listen_key: str) -> int:
         """
@@ -33,7 +34,10 @@ class Other(_HTTPManager):
         endpoint = "/openApi/user/auth/userDataStream"
         payload = {"listenKey": listen_key}
 
-        response = self.put(endpoint, payload)
+        try:
+            response = self.put(endpoint, payload)
+        except ServerError as e:
+            return e.error_code
         return response.status_code
 
     def delete_listen_key(self, listen_key: str) -> int:
@@ -50,5 +54,8 @@ class Other(_HTTPManager):
         endpoint = "/openApi/user/auth/userDataStream"
         payload = {"listenKey": listen_key}
 
-        response = self.delete(endpoint, payload)
+        try:
+            response = self.delete(endpoint, payload)
+        except ServerError as e:
+            return e.error_code
         return response.status_code

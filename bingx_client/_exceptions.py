@@ -42,6 +42,4 @@ class ServerError(Exception):
     def __init__(self, error_code: int, error_message: str) -> None:
         self.error_code = error_code
         self.error_message = error_message
-
-    def __str__(self) -> str:
-        return f"Error code: {self.error_code} - {self.ERROR_CODES.get(self.error_code) or self.error_message}"
+        super().__init__(self.error_message)

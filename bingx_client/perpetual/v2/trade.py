@@ -14,7 +14,7 @@ class Trade(_HTTPManager):
     def __init__(self, api_key: str, secret_key: str) -> None:
         super().__init__(api_key, secret_key)
 
-    def trade_order(self, order: Order) -> dict[str, Any]:
+    def create_order(self, order: Order) -> dict[str, Any]:
         """
         The current account places an order on the specified symbol contract.
 
@@ -25,9 +25,9 @@ class Trade(_HTTPManager):
         payload = order.to_dict()
 
         response = self.post(endpoint, payload)
-        return response
+        return response.json()
 
-    def bulk_trade_order(self, orders: list[Order], recvWindow: int | None = None) -> dict[str, Any]:
+    def bulk_create_order(self, orders: list[Order], recvWindow: int | None = None) -> dict[str, Any]:
         """
         The current account performs batch order operations on the specified symbol contract.
 

@@ -4,9 +4,9 @@ from bingx_client._http_manager import _HTTPManager
 from bingx_client.perpetual.v2._types import ProfitLossFundFlow
 
 
-class Account(_HTTPManager):
+class Account:
     def __init__(self, api_key: str, secret_key: str) -> None:
-        super().__init__(api_key, secret_key)
+        self.__http_manager = _HTTPManager(api_key, secret_key)
 
     def get_details(self, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -18,10 +18,10 @@ class Account(_HTTPManager):
         endpoint = "/openApi/swap/v2/user/balance"
         payload = {} if recvWindow is None else {"recvWindow": recvWindow}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
-    def get_swap_positions(self, symbol: str | None = None, recvWindow: int | None = None) -> dict[str, Any]:
+    def get_swap_positions(self, symbol: str | None = None, recvWindow: int | None = None) -> list[dict[str, Any]]:
         """
         Retrieve information on users' positions of Perpetual Swap.
 
@@ -34,10 +34,10 @@ class Account(_HTTPManager):
         else:
             payload = {"symbol": symbol.upper()} if recvWindow is None else {"symbol": symbol.upper(), "recvWindow": recvWindow}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
-    def get_profit_loss_fund_flow(self, profit_loss_fund_flow: ProfitLossFundFlow | None = None) -> dict[str, Any]:
+    def get_profit_loss_fund_flow(self, profit_loss_fund_flow: ProfitLossFundFlow | None = None) -> list[dict[str, Any]]:
         """
         Query the capital flow of the perpetual contract under the current account.
         If neither startTime nor endTime is sent, only the data of the last 7 days will be returned.
@@ -49,5 +49,5 @@ class Account(_HTTPManager):
         endpoint = "/openApi/swap/v2/user/income"
         payload = {} if profit_loss_fund_flow is None else profit_loss_fund_flow.to_dict()
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]

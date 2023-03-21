@@ -12,7 +12,7 @@ from bingx_client.perpetual.v2._types import (
 
 class Trade(_HTTPManager):
     def __init__(self, api_key: str, secret_key: str) -> None:
-        super().__init__(api_key, secret_key)
+        self.__http_manager = _HTTPManager(api_key, secret_key)
 
     def create_order(self, order: Order) -> dict[str, Any]:
         """
@@ -24,8 +24,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/order"
         payload = order.to_dict()
 
-        response = self.post(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
 
     def bulk_create_order(self, orders: list[Order], recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -37,8 +37,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/batchOrders"
         payload = {"batchOrders": [order.to_dict() for order in orders]} if recvWindow is None else {"batchOrders": [order.to_dict() for order in orders], "recvWindow": recvWindow}
 
-        response = self.post(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
 
     def close_all_positions(self, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -50,8 +50,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/closeAllPositions"
         payload = {} if recvWindow is None else {"recvWindow": recvWindow}
 
-        response = self.post(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
 
     def cancel_order(self, order_id: int, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -63,8 +63,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/order"
         payload = {"orderId": order_id, "symbol": symbol} if recvWindow is None else {"orderId": order_id, "symbol": symbol, "recvWindow": recvWindow}
 
-        response = self.delete(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.delete(endpoint, payload)
+        return response.json()["data"]
 
     def cancel_batch_orders(self, order_ids: list[int], symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -76,8 +76,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/batchOrders"
         payload = {"orderIdList": order_ids, "symbol": symbol} if recvWindow is None else {"orderIdList": order_ids, "symbol": symbol, "recvWindow": recvWindow}
 
-        response = self.delete(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.delete(endpoint, payload)
+        return response.json()["data"]
 
     def cancel_all_orders(self, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -89,8 +89,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/allOpenOrders"
         payload = {"symbol": symbol} if recvWindow is None else {"symbol": symbol, "recvWindow": recvWindow}
 
-        response = self.delete(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.delete(endpoint, payload)
+        return response.json()["data"]
 
     def get_open_orders(self, symbol: str | None = None, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -105,8 +105,8 @@ class Trade(_HTTPManager):
         else:
             payload = {"symbol": symbol} if recvWindow is None else {"symbol": symbol, "recvWindow": recvWindow}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def get_order(self, order_id: int, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -118,8 +118,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/order"
         payload = {"symbol": symbol, "orderId": order_id} if recvWindow is None else {"symbol": symbol, "orderId": order_id, "recvWindow": recvWindow}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def get_margin_mode(self, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -131,8 +131,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/marginType"
         payload = {"symbol": symbol} if recvWindow is None else {"symbol": symbol, "recvWindow": recvWindow}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def change_margin_mode(self, symbol: str, margin_type: MarginType, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -144,8 +144,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/marginType"
         payload = {"symbol": symbol, "marginType": margin_type.value} if recvWindow is None else {"symbol": symbol, "marginType": margin_type.value, "recvWindow": recvWindow}
 
-        response = self.post(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
 
     def get_leverage(self, symbol: str, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -157,8 +157,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/leverage"
         payload = {"symbol": symbol} if recvWindow is None else {"symbol": symbol, "recvWindow": recvWindow}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def change_leverage(self, symbol: str, position_side: PositionSide, leverage: int, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -170,7 +170,7 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/leverage"
         payload = {"symbol": symbol, "side": position_side.value, "leverage": leverage} if recvWindow is None else {"symbol": symbol, "side": position_side.value, "leverage": leverage, "recvWindow": recvWindow}
 
-        response = self.post(endpoint, payload)
+        response = self.__http_manager.post(endpoint, payload)
         return response.json()
 
     def get_force_orders(self, force_order: ForceOrder) -> dict[str, Any]:
@@ -184,8 +184,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/forceOrders"
         payload = force_order.to_dict()
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def get_orders_history(self, history_order: HistoryOrder) -> dict[str, Any]:
         """
@@ -198,8 +198,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/allOrders"
         payload = history_order.to_dict()
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def change_isolated_margin(self, symbol: str, amount: float, type: int, position_side: PositionSide = PositionSide.LONG, recvWindow: int | None = None) -> dict[str, Any]:
         """
@@ -217,5 +217,5 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/swap/v2/trade/positionMargin"
         payload = {"symbol": symbol, "amount": amount, "type": type, "positionSide": position_side.value} if recvWindow is None else {"symbol": symbol, "amount": amount, "type": type, "positionSide": position_side.value, "recvWindow": recvWindow}
 
-        response = self.post(endpoint, payload)
+        response = self.__http_manager.post(endpoint, payload)
         return response.json()

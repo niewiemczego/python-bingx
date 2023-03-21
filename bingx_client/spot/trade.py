@@ -4,9 +4,9 @@ from bingx_client._http_manager import _HTTPManager
 from bingx_client.spot._types import HistoryOrder, Order
 
 
-class Trade(_HTTPManager):
+class Trade:
     def __init__(self, api_key: str, secret_key: str) -> None:
-        super().__init__(api_key, secret_key)
+        self.__http_manager = _HTTPManager(api_key, secret_key)
 
     def create_order(self, order: Order) -> dict[str, Any]:
         """
@@ -21,8 +21,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/spot/v1/trade/order"
         payload = order.to_dict()
 
-        response = self.post(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
 
     def cancel_order(self, order_id: int, symbol: str, recv_window: int | None = None) -> dict[str, Any]:
         """
@@ -34,8 +34,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/spot/v1/trade/cancel"
         payload = {"symbol": symbol, "orderId": order_id} if recv_window is None else {"orderId": order_id, "symbol": symbol, "recvWindow": recv_window}
 
-        response = self.post(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
 
     def get_order(self, order_id: int, symbol: str, recv_window: int | None = None) -> dict[str, Any]:
         """
@@ -47,8 +47,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/spot/v1/trade/query"
         payload = {"symbol": symbol, "orderId": order_id} if recv_window is None else {"symbol": symbol, "orderId": order_id, "recvWindow": recv_window}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def get_open_orders(self, symbol: str | None = None, recv_window: int | None = None) -> dict[str, Any]:
         """
@@ -60,8 +60,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/spot/v1/trade/openOrders"
         payload = {"symbol": symbol} if recv_window is None else {"symbol": symbol, "recvWindow": recv_window}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def get_orders_history(self, history_order: HistoryOrder) -> dict[str, Any]:
         """
@@ -74,8 +74,8 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/spot/v1/trade/historyOrders"
         payload = history_order.to_dict()
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
     def get_assets(self, recv_window: int | None = None) -> dict[str, Any]:
         """
@@ -87,5 +87,5 @@ class Trade(_HTTPManager):
         endpoint = "/openApi/spot/v1/account/balance"
         payload = {} if recv_window is None else {"recvWindow": recv_window}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]

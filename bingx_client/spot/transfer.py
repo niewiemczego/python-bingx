@@ -9,9 +9,9 @@ from bingx_client.spot._types import (
 )
 
 
-class Transfer(_HTTPManager):
+class Transfer:
     def __init__(self, api_key: str, secret_key: str) -> None:
-        super().__init__(api_key, secret_key)
+        self.__http_manager = _HTTPManager(api_key, secret_key)
 
     def universal_transfer(self, transfer: UniversalTransfer) -> dict[str, Any]:
         """
@@ -22,7 +22,7 @@ class Transfer(_HTTPManager):
         endpoint = "/openApi/api/v3/asset/transfer"
         payload = transfer.to_dict()
 
-        response = self.post(endpoint, payload)
+        response = self.__http_manager.post(endpoint, payload)
         return response.json()
 
     def get_universal_transfer_history(self, history_transfer: HistoryTransfer) -> dict[str, Any]:
@@ -34,10 +34,10 @@ class Transfer(_HTTPManager):
         endpoint = "/openApi/api/v3/asset/transfer"
         payload = history_transfer.to_dict()
 
-        response = self.get(endpoint, payload)
+        response = self.__http_manager.get(endpoint, payload)
         return response.json()
 
-    def get_deposit_history(self, deposit_history: HistoryDeposit) -> dict[str, Any]:
+    def get_deposit_history(self, deposit_history: HistoryDeposit) -> list[dict[str, Any]]:
         """
 
         https://bingx-api.github.io/docs/spot/user-interface.html#deposit-history-supporting-network
@@ -46,10 +46,10 @@ class Transfer(_HTTPManager):
         endpoint = "/openApi/api/v3/capital/deposit/hisrec"
         payload = deposit_history.to_dict()
 
-        response = self.get(endpoint, payload)
+        response = self.__http_manager.get(endpoint, payload)
         return response.json()
 
-    def get_withdraw_history(self, withdraw_history: HistoryWithdraw) -> dict[str, Any]:
+    def get_withdraw_history(self, withdraw_history: HistoryWithdraw) -> list[dict[str, Any]]:
         """
 
         https://bingx-api.github.io/docs/spot/user-interface.html#withdraw-history-supporting-network
@@ -58,5 +58,5 @@ class Transfer(_HTTPManager):
         endpoint = "/openApi/api/v3/capital/withdraw/history"
         payload = withdraw_history.to_dict()
 
-        response = self.get(endpoint, payload)
+        response = self.__http_manager.get(endpoint, payload)
         return response.json()

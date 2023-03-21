@@ -4,11 +4,11 @@ from bingx_client._http_manager import _HTTPManager
 from bingx_client.spot._types import HistoryOrder, Order
 
 
-class Market(_HTTPManager):
+class Market:
     def __init__(self, api_key: str, secret_key: str) -> None:
-        super().__init__(api_key, secret_key)
+        self.__http_manager = _HTTPManager(api_key, secret_key)
 
-    def get_symbols(self, symbol: str | None = None) -> dict[str, Any]:
+    def get_symbols(self, symbol: str | None = None) -> list[dict[str, Any]]:
         """
         Get the list of symbols and their details
 
@@ -21,10 +21,10 @@ class Market(_HTTPManager):
         endpoint = "/openApi/spot/v1/common/symbols"
         payload = {} if symbol is None else {"symbol": symbol}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
-    def get_transaction_records(self, symbol: str, limit: int = 100) -> dict[str, Any]:
+    def get_transaction_records(self, symbol: str, limit: int = 100) -> list[dict[str, Any]]:
         """
         Get the transaction records of a symbol
 
@@ -37,10 +37,10 @@ class Market(_HTTPManager):
         endpoint = "/openApi/spot/v1/market/trades"
         payload = {"symbol": symbol, "limit": limit}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]
 
-    def get_depth_details(self, symbol: str, limit: int = 20) -> dict[str, Any]:
+    def get_depth_details(self, symbol: str, limit: int = 20) -> list[list[str]]:
         """
         Get the depth details for a given symbol
 
@@ -53,5 +53,5 @@ class Market(_HTTPManager):
         endpoint = "/openApi/spot/v1/market/depth"
         payload = {"symbol": symbol, "limit": limit}
 
-        response = self.get(endpoint, payload)
-        return response.json()
+        response = self.__http_manager.get(endpoint, payload)
+        return response.json()["data"]

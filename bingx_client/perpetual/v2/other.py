@@ -6,7 +6,7 @@ from bingx_client._http_manager import _HTTPManager
 
 class Other(_HTTPManager):
     def __init__(self, api_key: str, secret_key: str) -> None:
-        super().__init__(api_key, secret_key)
+        self.__http_manager = _HTTPManager(api_key, secret_key)
 
     def generate_listen_key(self) -> dict[str, Any]:
         """
@@ -17,7 +17,7 @@ class Other(_HTTPManager):
 
         endpoint =  "/openApi/user/auth/userDataStream"
 
-        response = self.post(endpoint)
+        response = self.__http_manager.post(endpoint)
         return response.json()
 
     def extend_listen_key_validity_period(self, listen_key: str) -> int:
@@ -35,7 +35,7 @@ class Other(_HTTPManager):
         payload = {"listenKey": listen_key}
 
         try:
-            response = self.put(endpoint, payload)
+            response = self.__http_manager.put(endpoint, payload)
         except ServerError as e:
             return e.error_code
         return response.status_code
@@ -55,7 +55,7 @@ class Other(_HTTPManager):
         payload = {"listenKey": listen_key}
 
         try:
-            response = self.delete(endpoint, payload)
+            response = self.__http_manager.delete(endpoint, payload)
         except ServerError as e:
             return e.error_code
         return response.status_code

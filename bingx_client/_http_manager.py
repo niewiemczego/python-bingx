@@ -1,3 +1,4 @@
+from json.decoder import JSONDecodeError
 from typing import Any
 
 import requests
@@ -10,8 +11,9 @@ class _HTTPManager:
     __BASE_URL = "https://open-api.bingx.com"
 
     def __init__(self, api_key: str, secret_key: str) -> None:
-        self._secret_key = secret_key
-        self._headers = {'X-BX-APIKEY': api_key}
+        self.__secret_key = secret_key
+        self.__session = requests.Session()
+        self.__session.headers.update({'X-BX-APIKEY': api_key})
 
     def _generate_signature(self, query_string: str) -> str:
         """
@@ -21,8 +23,8 @@ class _HTTPManager:
         :return: A string of the signature
         """
 
-        hash = generate_hash(self._secret_key, query_string)
-        signature = hash.hexdigest()
+        hmac = generate_hash(self.__secret_key, query_string)
+        signature = hmac.hexdigest()
         return signature
 
     def _generate_query_string(self, payload: dict[str, Any] = {}) -> str:
@@ -48,18 +50,18 @@ class _HTTPManager:
         :param headers: This is a dictionary of headers that will be sent with the request
         """
         if headers:
-            self._headers = self._headers | headers
+            self.__session.headers.update(headers)
 
         url = f"{self.__BASE_URL}{endpoint}?{self._generate_query_string(payload)}"
         match method:
             case "GET":
-                req = requests.request("GET", url, headers=self._headers)
+                req = self.__session.get(url)
             case "POST":
-                req = requests.request("POST", url, headers=self._headers)
+                req = self.__session.post(url)
             case "PUT":
-                req = requests.request("PUT", url, headers=self._headers)
+                req = self.__session.put(url)
             case "DELETE":
-                req = requests.request("DELETE", url, headers=self._headers)
+                req = self.__session.delete(url)
             case _:
                 raise InvalidMethodException(f"Invalid method used: {method}")
 
@@ -68,7 +70,7 @@ class _HTTPManager:
 
         try:
             req_json: dict[str, Any] = req.json()
-        except requests.exceptions.JSONDecodeError:
+        except JSONDecodeError:
             return req
         else:
             #TODO: Check if this is the correct way to check for errors

@@ -24,7 +24,6 @@ setup(
     packages=['bingx'],
     description='BingX REST API python implementation',
     long_description=long_description,
-    long_description_content_type="text/x-rst",
     url='https://github.com/niewiemczego/python-bingx',
     author='niewiemczego',
     license='MIT',

@@ -17,7 +17,6 @@ setup(
     description=about["__description__"],
     license=about["__license__"],
     packages=['bingx'],
-    description='BingX REST API python implementation',
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/niewiemczego/python-bingx',

@@ -1,33 +1,26 @@
-import codecs
 import os
-import re
 
 from setuptools import setup
 
-with codecs.open(
-        os.path.join(
-            os.path.abspath(os.path.dirname(__file__)),
-            'bingx',
-            '__init__.py'
-        ), 'r', 'latin1') as fp:
-    try:
-        version = re.findall(r'^__version__ = "([^"]+)"\r?$', fp.read(), re.M)[0]
-    except IndexError:
-        raise RuntimeError('Unable to determine version...')
+about = {}
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, "bingx", "__version__.py"), "r") as f:
+    exec(f.read(), about)
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='python-bingx',
-    version=version,
+    name=about["__title__"],
+    version=about["__version__"],
+    author=about["__author__"],
+    description=about["__description__"],
+    license=about["__license__"],
     packages=['bingx'],
     description='BingX REST API python implementation',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/niewiemczego/python-bingx',
-    author='niewiemczego',
-    license='MIT',
-    author_email='',
     install_requires=[
         'requests', 'websockets'
     ],

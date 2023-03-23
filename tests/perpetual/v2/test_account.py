@@ -3,9 +3,9 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx_client._exceptions import ClientError
-from bingx_client.perpetual.v2._types import IncomeType, ProfitLossFundFlow
-from bingx_client.perpetual.v2.account import Account
+from bingx.exceptions import ClientError
+from bingx.perpetual.v2.account import Account
+from bingx.perpetual.v2.types import IncomeType, ProfitLossFundFlow
 
 load_dotenv()
 
@@ -22,7 +22,7 @@ class TestAccount:
 
     def test_get_swap_positions_valid(self, account: Account):
         response = account.get_swap_positions()
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_swap_positions_valid_symbol(self, account: Account):
         response = account.get_swap_positions("BTC-USDT")
@@ -33,23 +33,23 @@ class TestAccount:
             account.get_swap_positions("BTCUSDT")
 
     def test_get_profit_loss_fund_flow_valid(self, account: Account):
-        response = account.get_profit_loss_fund_flow()
-        assert isinstance(response, dict)
+        response = account.get_profit_loss_fund_flow(ProfitLossFundFlow())
+        assert isinstance(response, list)
 
     def test_get_profit_loss_fund_flow_valid_symbol(self, account: Account):
         profit_loss_fund_flow = ProfitLossFundFlow("BTC-USDT")
         response = account.get_profit_loss_fund_flow(profit_loss_fund_flow)
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_profit_loss_fund_flow_invalid_symbol(self, account: Account):
         profit_loss_fund_flow = ProfitLossFundFlow("BTCUSDT")
         response = account.get_profit_loss_fund_flow(profit_loss_fund_flow)
-        assert isinstance(response, dict)
+        assert response is None
 
     def test_get_profit_loss_fund_flow_valid_income_type(self, account: Account):
         profit_loss_fund_flow = ProfitLossFundFlow("BTC-USDT", IncomeType.FUNDING_FEE)
         response = account.get_profit_loss_fund_flow(profit_loss_fund_flow)
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_profit_loss_fund_flow_invalid_income_type(self):
         with pytest.raises(AttributeError):

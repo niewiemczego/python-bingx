@@ -1,7 +1,7 @@
 from typing import Any
 
-from bingx_client._http_manager import _HTTPManager
-from bingx_client.perpetual.v2._types import (
+from bingx._http_manager import _HTTPManager
+from bingx.perpetual.v2.types import (
     ForceOrder,
     HistoryOrder,
     MarginType,

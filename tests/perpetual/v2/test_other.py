@@ -3,8 +3,8 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx_client._exceptions import ClientError
-from bingx_client.perpetual.v2.other import Other
+from bingx.exceptions import ClientError
+from bingx.perpetual.v2.other import Other
 
 load_dotenv()
 

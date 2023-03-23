@@ -1,7 +1,7 @@
 from typing import Any
 
-from bingx_client._exceptions import ServerError
-from bingx_client._http_manager import _HTTPManager
+from bingx._http_manager import _HTTPManager
+from bingx.exceptions import ServerError
 
 
 class Other(_HTTPManager):

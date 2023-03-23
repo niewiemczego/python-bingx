@@ -2,7 +2,7 @@ from dataclasses import asdict, dataclass
 from enum import Enum
 from typing import Any
 
-from bingx_client._exceptions import HistoryOrderException, OrderException
+from bingx.exceptions import HistoryOrderException, OrderException
 
 
 class DictMixin:

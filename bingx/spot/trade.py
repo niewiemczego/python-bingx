@@ -1,7 +1,7 @@
 from typing import Any
 
-from bingx_client._http_manager import _HTTPManager
-from bingx_client.spot._types import HistoryOrder, Order
+from bingx._http_manager import _HTTPManager
+from bingx.spot.types import HistoryOrder, Order
 
 
 class Trade:

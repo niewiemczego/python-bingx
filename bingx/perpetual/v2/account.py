@@ -1,7 +1,7 @@
 from typing import Any
 
-from bingx_client._http_manager import _HTTPManager
-from bingx_client.perpetual.v2._types import ProfitLossFundFlow
+from bingx._http_manager import _HTTPManager
+from bingx.perpetual.v2.types import ProfitLossFundFlow
 
 
 class Account:
@@ -37,7 +37,7 @@ class Account:
         response = self.__http_manager.get(endpoint, payload)
         return response.json()["data"]
 
-    def get_profit_loss_fund_flow(self, profit_loss_fund_flow: ProfitLossFundFlow | None = None) -> list[dict[str, Any]]:
+    def get_profit_loss_fund_flow(self, profit_loss_fund_flow: ProfitLossFundFlow) -> list[dict[str, Any]]:
         """
         Query the capital flow of the perpetual contract under the current account.
         If neither startTime nor endTime is sent, only the data of the last 7 days will be returned.
@@ -47,7 +47,7 @@ class Account:
         https://bingx-api.github.io/docs/swapV2/account-api.html#_3-get-account-profit-and-loss-fund-flow
         """
         endpoint = "/openApi/swap/v2/user/income"
-        payload = {} if profit_loss_fund_flow is None else profit_loss_fund_flow.to_dict()
+        payload = profit_loss_fund_flow.to_dict()
 
         response = self.__http_manager.get(endpoint, payload)
         return response.json()["data"]

@@ -3,8 +3,8 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx_client._exceptions import ClientError
-from bingx_client.perpetual.v2.market import Market
+from bingx.exceptions import ClientError
+from bingx.perpetual.v2.market import Market
 
 load_dotenv()
 
@@ -17,11 +17,11 @@ class TestMarket:
 
     def test_get_contract_info(self, market: Market):
         response = market.get_contract_info()
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_latest_price_of_trading_pair_valid(self, market: Market):
         response = market.get_latest_price_of_trading_pair()
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_latest_price_of_trading_pair_valid_symbol(self, market: Market):
         response = market.get_latest_price_of_trading_pair("BTC-USDT")
@@ -45,7 +45,7 @@ class TestMarket:
 
     def test_get_latest_trade_of_trading_pair_valid_symbol(self, market: Market):
         response = market.get_latest_trade_of_trading_pair("BTC-USDT")
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_latest_trade_of_trading_pair_invalid_symbol(self, market: Market):
         with pytest.raises(ClientError):
@@ -57,7 +57,7 @@ class TestMarket:
 
     def test_get_current_funding_rate_valid(self, market: Market):
         response = market.get_current_funding_rate()
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_current_funding_rate_valid_symbol(self, market: Market):
         response = market.get_current_funding_rate("BTC-USDT")
@@ -70,7 +70,7 @@ class TestMarket:
     #TODO: add more test for this functions for args: start_time, end_time
     def test_get_funding_rate_history_valid_symbol(self, market: Market):
         response = market.get_funding_rate_history("BTC-USDT")
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_funding_rate_history_invalid_symbol(self, market: Market):
         with pytest.raises(ClientError):
@@ -107,7 +107,7 @@ class TestMarket:
 
     def test_get_ticker_valid(self, market: Market):
         response = market.get_ticker()
-        assert isinstance(response, dict)
+        assert isinstance(response, list)
 
     def test_get_ticker_valid_symbol(self, market: Market):
         response = market.get_ticker("BTC-USDT")

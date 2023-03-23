@@ -1,7 +1,7 @@
-from bingx_client.perpetual.v2.account import Account
-from bingx_client.perpetual.v2.market import Market
-from bingx_client.perpetual.v2.other import Other
-from bingx_client.perpetual.v2.trade import Trade
+from bingx.perpetual.v2.account import Account
+from bingx.perpetual.v2.market import Market
+from bingx.perpetual.v2.other import Other
+from bingx.perpetual.v2.trade import Trade
 
 
 class PerpetualV2:

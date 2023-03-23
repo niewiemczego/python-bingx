@@ -1,6 +1,6 @@
 from typing import Any
 
-from bingx_client._http_manager import _HTTPManager
+from bingx._http_manager import _HTTPManager
 
 
 class Market:

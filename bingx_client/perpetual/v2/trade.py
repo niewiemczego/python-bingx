@@ -9,6 +9,38 @@ from bingx_client.perpetual.v2._types import (
     PositionSide,
 )
 
+#  symbol: strf
+#     type: OrderType
+#     side: Side
+#     position_side: PositionSide = PositionSide.LONG
+#     price: float | None = None
+#     quantity: float | None = None
+#     stop_price: float | None = None
+#     recv_window: int | None = None
+
+    # SELL - SHORT -> OPEN SHORT POSITION
+    # BUY - LONG -> OPEN LONG POSITION
+    # SELL - LONG -> CLOSE LONG POSITION
+    # BUY - SHORT -> CLOSE SHORT POSITION
+    # res = bingx_exchange.set_leverage("DOGE-USDT", PositionSide.SHORT, 2)
+    # print(res)
+    # order_id = bingx_exchange.create_order(Order(
+    #     PositionSide.SHORT,
+    #     "DOGE-USDT",
+    #     40.0,
+    #     0.1,
+    #     2
+    # ))
+    # print(order_id) # 1638669174471397376 , 1638669258827239424
+
+    # order_id = bingx_exchange.close_order(Order(
+    #     PositionSide.SHORT,
+    #     "DOGE-USDT",
+    #     5.0,
+    #     0.1,
+    #     2
+    # ))
+    # print(order_id)
 
 class Trade(_HTTPManager):
     def __init__(self, api_key: str, secret_key: str) -> None:
@@ -18,7 +50,27 @@ class Trade(_HTTPManager):
         """
         The current account places an order on the specified symbol contract.
 
+        examples:
+        - create long: Order(symbol="DOGE-USDT", side=Side.BUY, position_side=PositionSide.LONG, quantity=100.0)
+        - create short: Order(symbol="DOGE-USDT", side=Side.SELL, position_side=PositionSide.SHORT, quantity=100.0)
+
+
         https://bingx-api.github.io/docs/swapV2/trade-api.html#_1-trade-order
+        """
+
+        endpoint = "/openApi/swap/v2/trade/order"
+        payload = order.to_dict()
+
+        response = self.__http_manager.post(endpoint, payload)
+        return response.json()["data"]
+
+    def close_order(self, order: Order) -> dict[str, Any]:
+        """
+        The current account closes an order on the specified symbol contract. This is custom method which is not documented in the official API.
+
+        examples:
+        - close long: Order(symbol="DOGE-USDT", side=Side.SELL, position_side=PositionSide.LONG, quantity=100.0)
+        - close short: Order(symbol="DOGE-USDT", side=Side.BUY, position_side=PositionSide.SHORT, quantity=100.0)
         """
 
         endpoint = "/openApi/swap/v2/trade/order"

@@ -41,11 +41,11 @@ class OrderType(Enum):
 @dataclass
 class Order(DictMixin):
     symbol: str
-    type: OrderType
     side: Side
-    position_side: PositionSide = PositionSide.LONG
-    price: float | None = None
+    position_side: PositionSide
     quantity: float | None = None
+    type: OrderType = OrderType.MARKET
+    price: float | None = None
     stop_price: float | None = None
     recv_window: int | None = None
 

@@ -1,7 +1,7 @@
-from bingx.perpetual.v1 import PerpetualV1
-from bingx.perpetual.v2 import PerpetualV2
-from bingx.spot import Spot
-from bingx.standard import Standard
+from bingX.perpetual.v1 import PerpetualV1
+from bingX.perpetual.v2 import PerpetualV2
+from bingX.spot import Spot
+from bingX.standard import Standard
 
 
 class BingX:

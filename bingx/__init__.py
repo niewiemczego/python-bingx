@@ -1,4 +1,2 @@
-__version__ = "1.0.0"
-
-from .exceptions import ClientError, ServerError
-from .main import BingX
+from bingX.exceptions import ClientError, ServerError
+from bingX.main import BingX

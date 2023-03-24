@@ -1,1 +1,1 @@
-from .spot import Spot
+from bingX.spot.spot import Spot

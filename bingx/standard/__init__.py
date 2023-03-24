@@ -1,1 +1,1 @@
-from .standard import Standard
+from bingX.standard.standard import Standard

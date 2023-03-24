@@ -1,6 +1,6 @@
-from bingx.spot.market import Market
-from bingx.spot.trade import Trade
-from bingx.spot.transfer import Transfer
+from bingX.spot.market import Market
+from bingX.spot.trade import Trade
+from bingX.spot.transfer import Transfer
 
 
 class Spot:

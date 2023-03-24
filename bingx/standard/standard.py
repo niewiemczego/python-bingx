@@ -1,10 +1,10 @@
 from typing import Any
 
-from bingx._http_manager import _HTTPManager
-from bingx.perpetual.v2.types import HistoryOrder
+from bingX._http_manager import _HTTPManager
+from bingX.perpetual.v2.types import HistoryOrder
 
 
-class Standard(_HTTPManager):
+class Standard:
     def __init__(self, api_key: str, secret_key: str) -> None:
         self.__http_manager = _HTTPManager(api_key, secret_key)
 

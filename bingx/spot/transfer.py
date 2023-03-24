@@ -1,7 +1,7 @@
 from typing import Any
 
-from bingx._http_manager import _HTTPManager
-from bingx.spot.types import (
+from bingX._http_manager import _HTTPManager
+from bingX.spot.types import (
     HistoryDeposit,
     HistoryTransfer,
     HistoryWithdraw,

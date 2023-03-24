@@ -3,8 +3,8 @@ from typing import Any
 
 import requests
 
-from bingx._helpers import generate_hash, generate_timestamp
-from bingx.exceptions import ClientError, InvalidMethodException, ServerError
+from bingX._helpers import generate_hash, generate_timestamp
+from bingX.exceptions import ClientError, InvalidMethodException, ServerError
 
 
 class _HTTPManager:

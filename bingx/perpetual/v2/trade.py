@@ -9,38 +9,6 @@ from bingX.perpetual.v2.types import (
     PositionSide,
 )
 
-#  symbol: strf
-#     type: OrderType
-#     side: Side
-#     position_side: PositionSide = PositionSide.LONG
-#     price: float | None = None
-#     quantity: float | None = None
-#     stop_price: float | None = None
-#     recv_window: int | None = None
-
-    # SELL - SHORT -> OPEN SHORT POSITION
-    # BUY - LONG -> OPEN LONG POSITION
-    # SELL - LONG -> CLOSE LONG POSITION
-    # BUY - SHORT -> CLOSE SHORT POSITION
-    # res = bingx_exchange.set_leverage("DOGE-USDT", PositionSide.SHORT, 2)
-    # print(res)
-    # order_id = bingx_exchange.create_order(Order(
-    #     PositionSide.SHORT,
-    #     "DOGE-USDT",
-    #     40.0,
-    #     0.1,
-    #     2
-    # ))
-    # print(order_id) # 1638669174471397376 , 1638669258827239424
-
-    # order_id = bingx_exchange.close_order(Order(
-    #     PositionSide.SHORT,
-    #     "DOGE-USDT",
-    #     5.0,
-    #     0.1,
-    #     2
-    # ))
-    # print(order_id)
 
 class Trade(_HTTPManager):
     def __init__(self, api_key: str, secret_key: str) -> None:

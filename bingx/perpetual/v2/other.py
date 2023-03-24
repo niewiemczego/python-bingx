@@ -4,7 +4,7 @@ from bingX._http_manager import _HTTPManager
 from bingX.exceptions import ServerError
 
 
-class Other(_HTTPManager):
+class Other:
     def __init__(self, api_key: str, secret_key: str) -> None:
         self.__http_manager = _HTTPManager(api_key, secret_key)
 

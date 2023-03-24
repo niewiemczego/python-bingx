@@ -1,6 +1,6 @@
 # Python-BingX
 
-Python-bingx is a powerful and flexible Python package that allows you to easily interact with the BingX API. The package currently supports the Spot API, Standard API, Perpetual Swap API Reference V1, and Perpetual Swap API Reference V2. With BingX-Client, you can retrieve real-time market data, manage your account, place trades, and more...
+Python-bingx is a powerful and flexible Python package that allows you to easily interact with the BingX API. The package currently supports the Spot API, Standard API, Perpetual Swap API Reference V1, and Perpetual Swap API Reference V2. With python-bingx, you can retrieve real-time market data, manage your account, place trades, and more...
 
 # Installation
 
@@ -19,7 +19,7 @@ There are multiple ways to use python-bingx, depending on your needs and prefere
 The most straightforward way to use python-bingx is by importing the `BingX` class and initializing it with your API key and secret key:
 
 ```python
-from bingx import BingX
+from bingX import BingX
 
 bingx_client = BingX(api_key="api_key", secret_key="secret_key")
 ```
@@ -36,7 +36,7 @@ bingx_client.perpetual_v2.trade.trade_order()
 If you prefer to work with a specific API or version, you can import the relevant class and initialize it with your API key and secret key:
 
 ```python
-from bingx.perpetual.v2 import PerpetualV2
+from bingX.perpetual.v2 import PerpetualV2
 
 bingx_client = PerpetualV2(api_key="api_key", secret_key="secret_key")
 ```
@@ -50,7 +50,7 @@ bingx_client.trade.trade_order()
 
 # Handling Responses
 
-BingX-Client uses requests library to communicate with the API and returns the response in JSON format. You can easily handle the response by accessing the relevant key(s) in the dictionary, for example:
+Python-bingx uses requests library to communicate with the API and returns the response in JSON format. You can easily handle the response by accessing the relevant key(s) in the dictionary, for example:
 
 ```python
 # Get the symbol and last price of BTC/USDT
@@ -61,10 +61,10 @@ last_price = response["lastPrice"]
 
 # Error Handling
 
-In case of errors or exceptions, BingX-Client will raise relevant exceptions with error message and error code. You can catch and handle the exceptions accordingly, for example:
+In case of errors or exceptions, python-bingx will raise relevant exceptions with error message and error code. You can catch and handle the exceptions accordingly, for example:
 
 ```python
-from bingx import ClientError, ServerError
+from bingX import ClientError, ServerError
 
 try:
     response = bingx_client.perpetual_v2.trade.create_order()

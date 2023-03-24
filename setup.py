@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 about = {}
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, "bingx", "__version__.py"), "r") as f:
+with open(os.path.join(here, "bingX", "__version__.py"), "r") as f:
     exec(f.read(), about)
 
 with open("README.md", "r") as fh:

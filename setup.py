@@ -1,6 +1,6 @@
 import os
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 about = {}
 here = os.path.abspath(os.path.dirname(__file__))
@@ -16,7 +16,7 @@ setup(
     author=about["__author__"],
     description=about["__description__"],
     license=about["__license__"],
-    packages=['bingx'],
+    packages=find_packages(),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/niewiemczego/python-bingx',

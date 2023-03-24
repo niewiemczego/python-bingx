@@ -3,8 +3,9 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx.exceptions import ClientError
-from bingx.perpetual.v2.types import (
+from bingX.exceptions import ClientError
+from bingX.perpetual.v2.trade import Trade
+from bingX.perpetual.v2.types import (
     ForceOrder,
     HistoryOrder,
     MarginType,
@@ -13,7 +14,6 @@ from bingx.perpetual.v2.types import (
     PositionSide,
     Side,
 )
-from bingx.perpetual.v2.trade import Trade
 
 load_dotenv()
 

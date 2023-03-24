@@ -5,7 +5,7 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx._helpers import generate_hash, generate_timestamp
+from bingX._helpers import generate_hash, generate_timestamp
 
 load_dotenv()
 

@@ -3,8 +3,8 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx.exceptions import ClientError
-from bingx.perpetual.v2.market import Market
+from bingX.exceptions import ClientError
+from bingX.perpetual.v2.market import Market
 
 load_dotenv()
 

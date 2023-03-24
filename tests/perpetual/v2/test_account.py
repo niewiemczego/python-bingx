@@ -3,9 +3,9 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx.exceptions import ClientError
-from bingx.perpetual.v2.account import Account
-from bingx.perpetual.v2.types import IncomeType, ProfitLossFundFlow
+from bingX.exceptions import ClientError
+from bingX.perpetual.v2.account import Account
+from bingX.perpetual.v2.types import IncomeType, ProfitLossFundFlow
 
 load_dotenv()
 

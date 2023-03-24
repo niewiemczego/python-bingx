@@ -3,8 +3,8 @@ import os
 import pytest
 from dotenv import load_dotenv
 
-from bingx._http_manager import _HTTPManager
-from bingx.exceptions import ClientError, InvalidMethodException, ServerError
+from bingX._http_manager import _HTTPManager
+from bingX.exceptions import ClientError, InvalidMethodException, ServerError
 
 load_dotenv()
 

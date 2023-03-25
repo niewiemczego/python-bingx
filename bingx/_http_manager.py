@@ -70,12 +70,12 @@ class _HTTPManager:
 
         try:
             req_json: dict[str, Any] = req.json()
-        except JSONDecodeError:
+        except JSONDecodeError: # i.e. sometimes it return just int status code
             return req
         else:
-            #TODO: Check if this is the correct way to check for errors
-            if req_json.get("code") is not None and req_json.get("code") != 0:
-                raise ClientError(req_json.get("code"), req_json.get("msg"))
+            if isinstance(req_json, dict):
+                if req_json.get("code") is not None and req_json.get("code") != 0:
+                    raise ClientError(req_json.get("code"), req_json.get("msg"))
             return req
 
     def get(self, endpoint: str, payload: dict[str, Any] = {}, headers: dict[str, Any] = {}) -> requests.Response:

@@ -8,7 +8,7 @@ class Market:
     def __init__(self, api_key: str, secret_key: str) -> None:
         self.__http_manager = _HTTPManager(api_key, secret_key)
 
-    def get_symbols(self, symbol: str | None = None) -> list[dict[str, Any]]:
+    def get_symbols(self, symbol: str | None = None) -> dict[str, Any]:
         """
         Get the list of symbols and their details
 
@@ -40,7 +40,7 @@ class Market:
         response = self.__http_manager.get(endpoint, payload)
         return response.json()["data"]
 
-    def get_depth_details(self, symbol: str, limit: int = 20) -> list[list[str]]:
+    def get_depth_details(self, symbol: str, limit: int = 20) -> dict[str, Any]:
         """
         Get the depth details for a given symbol
 

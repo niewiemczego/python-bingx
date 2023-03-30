@@ -10,7 +10,7 @@ from bingX.perpetual.v2.types import (
 )
 
 
-class Trade(_HTTPManager):
+class Trade:
     def __init__(self, api_key: str, secret_key: str) -> None:
         self.__http_manager = _HTTPManager(api_key, secret_key)
 
@@ -191,7 +191,7 @@ class Trade(_HTTPManager):
         payload = {"symbol": symbol, "side": position_side.value, "leverage": leverage} if recvWindow is None else {"symbol": symbol, "side": position_side.value, "leverage": leverage, "recvWindow": recvWindow}
 
         response = self.__http_manager.post(endpoint, payload)
-        return response.json()
+        return response.json()["data"]
 
     def get_force_orders(self, force_order: ForceOrder) -> dict[str, Any]:
         """

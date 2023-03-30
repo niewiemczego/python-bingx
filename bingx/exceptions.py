@@ -31,7 +31,7 @@ class ClientError(Exception):
     def __init__(self, error_code: int, error_message: str) -> None:
         self.error_code = error_code
         self.error_message = error_message
-        super().__init__(self.error_message)
+        super().__init__(self.error_message if len(self.error_message) > 0 else self.BUISNESS_ERROR_CODES.get(self.error_code, "Unknown Error"))
 
 
 class ServerError(Exception):
@@ -49,4 +49,4 @@ class ServerError(Exception):
     def __init__(self, error_code: int, error_message: str) -> None:
         self.error_code = error_code
         self.error_message = error_message
-        super().__init__(self.error_message)
+        super().__init__(self.error_message if len(self.error_message) > 0 else self.ERROR_CODES.get(self.error_code, "Unknown Error"))

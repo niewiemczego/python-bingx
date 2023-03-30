@@ -2,16 +2,8 @@ from dataclasses import asdict, dataclass
 from enum import Enum
 from typing import Any
 
+from bingX._helpers import DictMixin
 from bingX.exceptions import HistoryOrderException, OrderException
-
-
-class DictMixin:
-    def to_dict(self) -> dict[str, Any]:
-        def convert_value(value):
-            if isinstance(value, Enum):
-                return value.value
-            return value
-        return {k: convert_value(v) for k, v in asdict(self).items() if v is not None}
 
 
 class TransferType(Enum):

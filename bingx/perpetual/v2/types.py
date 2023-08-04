@@ -34,7 +34,7 @@ class OrderType(Enum):
 class Order(DictMixin):
     symbol: str
     side: Side
-    position_side: PositionSide
+    positionSide: PositionSide
     quantity: float | None = None
     type: OrderType = OrderType.MARKET
     price: float | None = None

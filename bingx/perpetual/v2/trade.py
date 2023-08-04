@@ -19,8 +19,8 @@ class Trade:
         The current account places an order on the specified symbol contract.
 
         examples:
-        - create long: Order(symbol="DOGE-USDT", side=Side.BUY, position_side=PositionSide.LONG, quantity=100.0)
-        - create short: Order(symbol="DOGE-USDT", side=Side.SELL, position_side=PositionSide.SHORT, quantity=100.0)
+        - create long: Order(symbol="DOGE-USDT", side=Side.BUY, positionSide=PositionSide.LONG, quantity=100.0)
+        - create short: Order(symbol="DOGE-USDT", side=Side.SELL, positionSide=PositionSide.SHORT, quantity=100.0)
 
 
         https://bingx-api.github.io/docs/swapV2/trade-api.html#_1-trade-order
@@ -37,8 +37,8 @@ class Trade:
         The current account closes an order on the specified symbol contract. This is custom method which is not documented in the official API.
 
         examples:
-        - close long: Order(symbol="DOGE-USDT", side=Side.SELL, position_side=PositionSide.LONG, quantity=100.0)
-        - close short: Order(symbol="DOGE-USDT", side=Side.BUY, position_side=PositionSide.SHORT, quantity=100.0)
+        - close long: Order(symbol="DOGE-USDT", side=Side.SELL, positionSide=PositionSide.LONG, quantity=100.0)
+        - close short: Order(symbol="DOGE-USDT", side=Side.BUY, positionSide=PositionSide.SHORT, quantity=100.0)
         """
 
         endpoint = "/openApi/swap/v2/trade/order"
